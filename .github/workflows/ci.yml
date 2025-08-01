@@ -33,7 +33,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install pdm
-          pdm sync --without-hashes --dev
+          pdm sync --dev
 
       - name: Run pytest with coverage
         run: pdm run pytest --maxfail=1 --disable-warnings --cov=forgesdk --cov-report=xml --cov-report=term-missing
