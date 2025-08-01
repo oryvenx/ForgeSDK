@@ -17,7 +17,7 @@ dependencies = [
     "rich",
 ]
 
-[project.optional-dependencies]
+[tool.pdm.dev-dependencies]
 dev = [
     "pytest>=8.4.1",
     "pytest-cov>=6.2.1",
