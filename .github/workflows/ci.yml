@@ -38,16 +38,10 @@ jobs:
       - name: Run pytest with coverage
         run: |
           pdm run pytest --maxfail=1 --disable-warnings \
-            --cov=forgesdk --cov-report=xml --cov-report=term-missing --cov-report=html > coverage.txt
+            --cov=forgesdk --cov-report=xml --cov-report=term-missing > coverage.txt
           cat coverage.txt
           echo "### 🧪 Test & Coverage Summary" >> $GITHUB_STEP_SUMMARY
-          tail -n 20 coverage.txt >> $GITHUB_STEP_SUMMARY
-
-      - name: Upload HTML coverage artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: coverage-html
-          path: htmlcov
+          grep -A 100 "tests coverage" coverage.txt >> $GITHUB_STEP_SUMMARY
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v5
