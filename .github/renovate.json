@@ -1,34 +1,39 @@
 {
-    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-    "extends": ["config:recommended"],
-    "timezone": "Europe/Paris",
-    "dependencyDashboard": true,
-    "prHourlyLimit": 2,
-    "prConcurrentLimit": 5,
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "timezone": "Europe/Paris",
+  "dependencyDashboard": true,
+  "prHourlyLimit": 2,
+  "prConcurrentLimit": 5,
 
-    "packageRules": [
-      {
-        "matchManagers": ["pre-commit"],
-        "groupName": "pre-commit hooks",
-        "schedule": ["every weekend"],
-        "automerge": true,
-        "automergeType": "pr",
-        "platformAutomerge": true
-      },
-      {
-        "matchDepTypes": ["devDependencies", "optionalDependencies"],
-        "groupName": "python-dev-tools",
-        "schedule": ["every weekend"],
-        "automerge": true,
-        "automergeType": "pr",
-        "platformAutomerge": true
-      },
-      {
-        "matchUpdateTypes": ["major"],
-        "automerge": false,
-        "prPriority": -1
-      }
-    ],
-    "rebaseWhen": "behind-base-branch",
-    "automergeStrategy": "merge"
-  }
+  "packageRules": [
+    {
+      "matchManagers": ["pre-commit"],
+      "groupName": "pre-commit hooks",
+      "schedule": ["every weekend"],
+      "automerge": true,
+      "automergeType": "pr",
+      "platformAutomerge": true
+    },
+    {
+      "matchDepTypes": ["devDependencies", "optionalDependencies"],
+      "groupName": "python-dev-tools",
+      "schedule": ["every weekend"],
+      "automerge": true,
+      "automergeType": "pr",
+      "platformAutomerge": true
+    },
+    {
+      "matchUpdateTypes": ["major"],
+      "automerge": false,
+      "prPriority": -1
+    },
+    {
+      "matchPackageNames": ["python"],
+      "enabled": false
+    }
+  ],
+
+  "rebaseWhen": "behind-base-branch",
+  "automergeStrategy": "merge"
+}
