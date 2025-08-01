@@ -1,0 +1,67 @@
+[project]
+name = "ForgeSDK"
+version = "0.1.0"
+description = "Multi-language OpenAPI SDK generator with plugin & template system"
+authors = [
+    { name = "oryvenx", email = "khanhnguyen26042003@gmail.com" },
+]
+readme = "README.md"
+license = { text = "MIT" }
+requires-python = ">=3.10"
+dependencies = [
+    "pydantic>=2.0",
+    "pyyaml",
+    "requests",
+    "typer[all]",
+    "jinja2",
+    "rich",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.4.1",
+    "pytest-cov>=6.2.1",
+    "black>=25.1.0",
+    "ruff>=0.12.7",
+    "mypy>=1.17.1",
+    "pre-commit>=4.2.0",
+    "codespell>=2.4.1",
+    "httpx",
+    "detect-secrets>=1.5.0",
+    "bandit>=1.8.6",
+]
+
+[project.scripts]
+forgesdk = "forgesdk.cli:app"
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+[tool.pdm]
+distribution = true
+
+
+[tool.pdm.scripts]
+lint = "pre-commit run --all-files"
+
+# ---- Tooling Config ----
+
+[tool.black]
+line-length = 88
+target-version = ["py310"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py310"
+exclude = ["examples", "forgesdk/languages/*/templates"]
+
+[tool.mypy]
+python_version = "3.10"
+ignore_missing_imports = true
+exclude = ["examples", "forgesdk/languages/*/templates"]
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q --disable-warnings"
+testpaths = ["tests"]
