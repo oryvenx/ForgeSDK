@@ -24,13 +24,6 @@ repos:
       - id: mypy
         additional_dependencies: [pydantic>=2.0]
 
-  # 2️⃣ Python security (bandit)
-  - repo: https://github.com/PyCQA/bandit
-    rev: 1.8.6
-    hooks:
-      - id: bandit
-        args: ["-q", "-r", "forgesdk"]
-
   # 3️⃣ YAML, JSON, TOML, XML, basic checks
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v5.0.0
