@@ -1,0 +1,82 @@
+exclude: |
+  (?x)^(
+    examples/|
+    forgesdk/languages/.*/templates/|
+    .*\.j2$
+  )
+
+repos:
+  # 1️⃣ Python formatting & lint
+  - repo: https://github.com/psf/black
+    rev: 25.1.0
+    hooks:
+      - id: black
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.12.7
+    hooks:
+      - id: ruff
+        args: [--fix]
+
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.17.1
+    hooks:
+      - id: mypy
+        additional_dependencies: [pydantic>=2.0]
+
+  # 2️⃣ Python security (bandit)
+  - repo: https://github.com/PyCQA/bandit
+    rev: 1.8.6
+    hooks:
+      - id: bandit
+        args: ["-q", "-r", "forgesdk"]
+
+  # 3️⃣ YAML, JSON, TOML, XML, basic checks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-yaml
+      - id: check-json
+      - id: check-toml
+      - id: check-xml
+      - id: check-merge-conflict
+      - id: check-added-large-files
+        args: ["--maxkb=512"] # tránh commit file generate quá to
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: mixed-line-ending
+        args: ["--fix=lf"]
+
+  # 4️⃣ Detect secrets & credentials
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.5.0
+    hooks:
+      - id: detect-secrets
+        args: ["--baseline", ".secrets.baseline"]
+
+  # 5️⃣ Spell check cho docs & code comment
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.4.1
+    hooks:
+      - id: codespell
+        args: ["--ignore-words=codespell.ignore"]
+
+  # 6️⃣ Markdown lint (strict doc)
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.45.0
+    hooks:
+      - id: markdownlint
+        files: \.md$
+        args: ["--config", ".markdownlint.yaml"]
+
+  # 8️⃣ Shell script lint (if any)
+  - repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.10.0.1
+    hooks:
+      - id: shellcheck
+
+  # 9️⃣ PDM lock file check
+  - repo: https://github.com/pdm-project/pdm
+    rev: 2.25.4
+    hooks:
+      - id: pdm-lock-check
