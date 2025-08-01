@@ -1,2 +1,5 @@
+import forgesdk
+
+
 def test_placeholder():
-    assert True
+    assert hasattr(forgesdk, "__name__")

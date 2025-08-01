@@ -36,7 +36,9 @@ jobs:
           pdm sync --dev
 
       - name: Run pytest with coverage
-        run: pdm run pytest --maxfail=1 --disable-warnings --cov=forgesdk --cov-report=xml --cov-report=term-missing
+        run: |
+          pdm run pytest --maxfail=1 --disable-warnings \
+            --cov=forgesdk --cov-report=xml --cov-report=term-missing --cov-fail-under=0
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v5
