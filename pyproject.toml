@@ -17,7 +17,7 @@ dependencies = [
     "rich",
 ]
 
-[project.optional-dependencies]
+[tool.pdm.dev-dependencies]
 dev = [
     "pytest>=8.4.1",
     "pytest-cov>=6.2.1",
@@ -43,7 +43,17 @@ distribution = true
 
 
 [tool.pdm.scripts]
-lint = "pre-commit run --all-files"
+lint.cmd = "pre-commit run --all-files"
+lint.help = "Run all pre-commit hooks"
+
+test.cmd = "pytest"
+test.help = "Run all tests"
+
+coverage.cmd = "pytest --maxfail=1 --disable-warnings --cov=forgesdk --cov-report=xml --cov-report=term-missing"
+coverage.help = "Run tests with coverage report"
+
+check.composite = ["lint", "coverage"]
+check.help = "Run lint and coverage checks"
 
 # ---- Tooling Config ----
 
